@@ -22,7 +22,27 @@ public class NameRepository
         String newName[]=findAll();
         System.out.println( find("Darwen AlTaeshi"));
         System.out.println(add("Samaar ahmed"));
+
+        String newst[]=findByFirstName("Samaar");
+        for(String s:newst){
+            System.out.println("First  " +s);
+        }
+
+        String newst1[]=findByLastName("AlTaeshi");
+        for(String s:newst1){
+            System.out.println("last  " +s);
+        }
+        for(String s:names){
+            System.out.println("before updated  " +s);
+        }
+        update("Darwen AlTaeshi", "Helio Amaral");
+
+
+        for(String s:names){
+            System.out.println("updated  " +s);
+        }
         clear();
+
 
 
     }
@@ -62,17 +82,54 @@ public class NameRepository
         if(check==true){
             names[0]=fullName;
         }
- return  check;
+     return  check;
     }
+
+
+    public static String[] findByFirstName(final String firstName){
+        String name[]=new String[4];
+        int i=0;
+
+
+        for(String s:names){
+            if(firstName.equals(s.substring(0, s.indexOf(" ")))){
+                name[i]=s;
+                i++;
+            }
+        }
+        return name;
+    }
+
+    public static String[] findByLastName(final String lastName){
+        String name[]=new String[4];
+        int i=0;
+        String testt="";
+
+        for(String s:names){
+            testt=s.substring(s.indexOf(" ")+1,s.length() );
+
+            if(lastName.equals(testt)){
+                name[i]=s;
+                i++;
+            }
+        }
+        return name;
+    }
+   // public static boolean update(final String original, final String updatedName){}
+   public static boolean update(final String original, final String updatedName){
+        boolean check= false;
+
+        if(!original.equals(updatedName)){
+
+       for(int i=0;i< names.length;i++){
+           if(names[i].equals(original)){ names[i]= updatedName;  check=true;
+           }
+       }
+
+        }
+       return check;
+   }
+
+
 }
-
-/*
-
-    public static String find(final String fullName)
-    Returns name if found and null if not found.
-
-public static boolean add(final String fullName)
-        Should add a new name to the array. Returns true when name was added and false when the array contains
-        the name.
- */
 
